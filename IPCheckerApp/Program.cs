@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Rotativa.AspNetCore;
 using DinkToPdf;
 using DinkToPdf.Contracts;
+using IPCheckerApp.Helpers;
+var context = new CustomAssemblyLoadContext();
+context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "DinkToPdf", "libwkhtmltox.dll"));
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

@@ -22,4 +22,10 @@
     <PackageReference Include="Select.Pdf.NetCore.x64" Version="25.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DinkToPdf\libwkhtmltox.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
