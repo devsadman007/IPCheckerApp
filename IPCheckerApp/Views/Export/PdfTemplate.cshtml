@@ -1,0 +1,49 @@
+﻿@model List<IPCheckerApp.Models.IpStatus>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>IP Status Report</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h2>IP Status Report</h2>
+    <p>Generated on: @DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>IP Address</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.SL</td>
+                    <td>@item.IpAddress</td>
+                    <td>@item.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
