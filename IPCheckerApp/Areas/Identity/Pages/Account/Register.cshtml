@@ -45,6 +45,13 @@
                             <button id="registerSubmit" type="submit" class="btn btn-primary btn-sm">Register</button>
                             @* <button id="btnSubmit" type="button" class="btn btn-primary btn-sm">Submit</button> *@
                         </div>
+                        @if (TempData["RegisterSuccess"] != null)
+                        {
+                            <div id="registerSuccessMessage" class="alert alert-success text-center">
+                                <strong>@TempData["RegisterSuccess"]</strong><br />
+                                @* <a class="btn btn-sm btn-primary mt-2" href="/Identity/Account/Login">Go to Login</a> *@
+                            </div>
+                        }
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -58,4 +65,20 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+          
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+                    const msg = document.getElementById('registerSuccessMessage');
+                if (msg) {
+                    setTimeout(() => {
+                        msg.style.transition = 'opacity 0.5s ease';
+                        msg.style.opacity = '0';
+                        setTimeout(() => {
+                            //console.log("Hi");
+                                window.location.href = '/Identity/Account/Login';
+                        }, 500);
+                    }, 3000);
+                }
+            });
+    </script>
 }
