@@ -9,14 +9,14 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="card shadow">
         <div class="card-body">
-            <h3 class="card-title text-center mb-3">📋 IP Check Results</h3>
+            <h3 class="card-title text-center mb-3"><i class="fa-solid fa-square-poll-vertical"></i>IP Check Results</h3>
             <p class="text-end text-muted">Checked at: <strong>@ViewBag.Timestamp</strong></p>
 
             <table class="table table-bordered table-striped">
-                <thead class="table-dark">
+                <thead class="table-info">
                     <tr>
                         <th>SL</th>
                         <th>IP Address</th>
@@ -35,24 +35,57 @@
                 </tbody>
             </table>
 
-            <div class="row mt-5">
-                <div class="col-md-6">
-                    <canvas id="pieChart"></canvas>
+            <div class="card shadow-sm border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">IP Statistics Overview</h5>
                 </div>
-                <div class="col-md-6">
-                    <canvas id="barChart"></canvas>
+                <div class="row mb-4 mt-3">
+                    <div class="col-md-6 offset-md-3">
+                        <table class="table table-bordered text-center">
+                            <thead class="table-info">
+                                <tr>
+                                    <th colspan="2">Summary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold text-success">Total UP</td>
+                                    <td class="fw-bold">@ViewBag.UpCount</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-danger">Total DOWN</td>
+                                    <td class="fw-bold">@ViewBag.DownCount</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+
+                            <div class="col-md-6 text-center">
+                                <canvas id="pieChart" width="300" height="300"></canvas>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <canvas id="barChart" width="300" height="300"></canvas>
+                            </div>
+                        </div>
+                   </div>
                 </div>
             </div>
 
+
             <div class="mt-4 text-center">
-                <a class="btn btn-success me-2" href="@Url.Action("ExportCsv", "Export")">⬇ Export as CSV</a>
-                <a class="btn btn-danger" href="@Url.Action("ExportPdf", "Export")" target="_blank">⬇ Export as PDF</a>
+                <a class="btn btn-success me-2" href="@Url.Action("ExportCsv", "Export")"><i class="fa-solid fa-file-csv"></i> Export as CSV</a>
+                <a class="btn btn-danger" href="@Url.Action("ExportPdf", "Export")" target="_blank"><i class="fa-solid fa-file-pdf"></i> Export as PDF</a>
             </div>
 
 
 
             <div class="mt-4 text-center">
-                <a href="@Url.Action("Index", "IpChecker")" class="btn btn-outline-primary">🔄 Check Again</a>
+                <a href="@Url.Action("Index", "IpChecker")" class="btn btn-outline-primary"><i class="fa-solid fa-rotate"></i> Check Again</a>
             </div>
         </div>
     </div>
@@ -73,6 +106,7 @@
             }]
         },
         options: {
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,

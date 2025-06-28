@@ -35,7 +35,7 @@ public class ExportController : Controller
             .AppendLine("</style></head><body>")
             .AppendLine("<h2 style='text-align:center; font-size:32px; margin-bottom:20px;'>IP Status Report of All Branch Office</h2>")
             //.AppendLine("<h2>IP Status Report</h2>")
-            .AppendLine($"<p>Generated on: {DateTime.Now:yyyy-MM-dd HH:mm:ss}</p>")
+            .AppendLine($"<p style='font-size:12px;font-weight:bold;'>Generated on: {DateTime.Now:yyyy-MM-dd HH:mm:ss}</p>")
             .AppendLine("<table><thead><tr><th>SL</th><th>IP Address</th><th>Status</th></tr></thead><tbody>");
 
         foreach (var item in data)
@@ -47,6 +47,7 @@ public class ExportController : Controller
         html.AppendLine("</tbody></table>")
             .AppendLine($"<p><strong>Total UP:</strong> <span class='badge up'>{up}</span></p>")
             .AppendLine($"<p><strong>Total DOWN:</strong> <span class='badge down'>{down}</span></p>")
+            .AppendLine($"<p style='margin-top:40px; text-align:right;'>Prepared by: <strong>{User.Identity?.Name}</strong></p>")
             .AppendLine("</body></html>");
 
         var doc = new HtmlToPdfDocument()

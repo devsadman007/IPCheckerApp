@@ -7,9 +7,9 @@
 <div class="container mt-5">
     <div class="card shadow-lg">
         <div class="card-body">
-            <h3 class="card-title mb-4 text-center">🖧 IP Address Status Checker</h3>
+            <h3 class="card-title mb-4 text-center"><i class="fa-solid fa-network-wired"></i> IP Address Status Checker</h3>
 
-            <form asp-action="CheckIps" method="post">
+            <form asp-action="CheckIps" method="post" target="_blank">
                 <div class="mb-3">
                     <label for="ipList" class="form-label">Enter IPs or Hostnames (one per line):</label>
                     <textarea class="form-control" id="ipList" name="ipList" rows="8" placeholder="e.g. 8.8.8.8&#10;example.com"></textarea>
