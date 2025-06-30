@@ -14,6 +14,7 @@ namespace IPCheckerApp.Controllers
         [HttpPost]
         public IActionResult CheckIps(string ipList)
         {
+
             var ips = ipList.Split(new[] { '\r', '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries)
                             .Select(ip => ip.Trim()).Take(80).ToList();
 

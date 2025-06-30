@@ -13,7 +13,24 @@ public class ExportController : Controller
     {
         _converter = converter;
     }
+    public IActionResult ExportCsv()
+    {
+        if (TempData["IpTable"] is not string json)
+            return RedirectToAction("Index", "IpChecker");
 
+        var data = JsonSerializer.Deserialize<List<IpStatus>>(json);
+
+        var sb = new StringBuilder();
+        sb.AppendLine("SL,IP Address,Status");
+
+        foreach (var item in data)
+        {
+            sb.AppendLine($"{item.SL},{item.IpAddress},{item.Status}");
+        }
+
+        var bytes = Encoding.UTF8.GetBytes(sb.ToString());
+        return File(bytes, "text/csv", $"{DateTime.Now:yyyy-MM-dd}-IpStatus.csv");
+    }
     public IActionResult ExportPdf()
     {
         if (TempData["IpTable"] is not string json)
@@ -45,8 +62,22 @@ public class ExportController : Controller
         }
 
         html.AppendLine("</tbody></table>")
-            .AppendLine($"<p><strong>Total UP:</strong> <span class='badge up'>{up}</span></p>")
-            .AppendLine($"<p><strong>Total DOWN:</strong> <span class='badge down'>{down}</span></p>")
+            .AppendLine("<br/><h3 style='margin-top:30px;'>Summary</h3>")
+            .AppendLine("<table style='width: 40%; border-collapse: collapse; margin-top:10px;'>")
+            .AppendLine("<thead>")
+            .AppendLine("<tr>")
+            .AppendLine("<th style='border: 1px solid #ccc; padding: 8px; background-color: #f2f2f2;'>Status</th>")
+            .AppendLine("<th style='border: 1px solid #ccc; padding: 8px; background-color: #f2f2f2;'>Count</th>")
+            .AppendLine("</tr>")
+            .AppendLine("</thead>")
+            .AppendLine("<tbody>")
+            .AppendLine($"<tr><td style='border: 1px solid #ccc; padding: 8px;'>Total UP</td><td style='border: 1px solid #ccc; padding: 8px; color:green; font-weight:bold;'>{up}</td></tr>")
+            .AppendLine($"<tr><td style='border: 1px solid #ccc; padding: 8px;'>Total DOWN</td><td style='border: 1px solid #ccc; padding: 8px; color:red; font-weight:bold;'>{down}</td></tr>")
+            .AppendLine("</tbody>")
+            .AppendLine("</table>")
+
+            //.AppendLine($"<p><strong>Total UP:</strong> <span class='badge up'>{up}</span></p>")
+            //.AppendLine($"<p><strong>Total DOWN:</strong> <span class='badge down'>{down}</span></p>")
             .AppendLine($"<p style='margin-top:40px; text-align:right;'>Prepared by: <strong>{User.Identity?.Name}</strong></p>")
             .AppendLine("</body></html>");
 
